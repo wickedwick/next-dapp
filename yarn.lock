@@ -3605,6 +3605,11 @@ nearley@^2.7.10:
     railroad-diagrams "^1.0.0"
     randexp "0.4.6"
 
+next-image-loader@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/next-image-loader/-/next-image-loader-2.0.6.tgz#e8596efb93a6d73e87c797fab8d7139ef1bea9f9"
+  integrity sha512-TeMeOyQ1DbI9ZfCKjrvErsMrClpkm2idPfPAUlURSNV3NQPCBhhQi40ejlmvJQ4Btr1UFNMPFQ35LeHDJWoN5A==
+
 next@latest:
   version "12.0.7"
   resolved "https://registry.yarnpkg.com/next/-/next-12.0.7.tgz#33ebf229b81b06e583ab5ae7613cffe1ca2103fc"

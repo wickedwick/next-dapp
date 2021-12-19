@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Image from 'next/image'
+//import Image, { ImageLoader } from 'next/image'
 import styles from './layout.module.css'
 import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
@@ -7,6 +7,10 @@ import { LayoutProps } from '../types/components'
 
 const name = '[Your Name]'
 export const siteTitle = 'Next.js Sample Website'
+
+// const loader: ImageLoader = ({ src, width, quality }) => {
+//   return `${process.env.NEXT_PUBLIC_OPTIMIZE_DOMAIN}?url=${encodeURIComponent(src)}&w=${Math.min(width, 1080)}&q=${quality || 75}`
+// }
 
 const Layout = ({ children, home }: LayoutProps): JSX.Element => {
   return (
@@ -28,29 +32,12 @@ const Layout = ({ children, home }: LayoutProps): JSX.Element => {
       </Head>
       <header className={styles.header}>
         {home ? (
-          <>
-            <Image
-              priority
-              src="/images/profile.jpg"
-              className={utilStyles.borderCircle}
-              height={144}
-              width={144}
-              alt={name}
-            />
-            <h1 className={utilStyles.heading2Xl}>{name}</h1>
-          </>
+          <h1 className={utilStyles.heading2Xl}>{name}</h1>
         ) : (
           <>
             <Link href="/">
               <a>
-                <Image
-                  priority
-                  src="/images/profile.jpg"
-                  className={utilStyles.borderCircle}
-                  height={108}
-                  width={108}
-                  alt={name}
-                />
+                Home
               </a>
             </Link>
             <h2 className={utilStyles.headingLg}>
