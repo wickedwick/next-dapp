@@ -72,3 +72,5 @@ const Layout = ({ children, home }: LayoutProps): JSX.Element => {
     </div>
   )
 }
+
+export default Layout
