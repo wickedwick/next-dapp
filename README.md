@@ -1,2 +1,1 @@
-# next-dapp
-Next JS 12 app with decentralized storage and DID authentication
+This is a starter template for [Learn Next.js](https://nextjs.org/learn).
