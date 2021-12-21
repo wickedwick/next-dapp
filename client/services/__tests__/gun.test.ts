@@ -1,4 +1,3 @@
-import Gun from 'gun';
 import { IGunChainReference } from 'gun/types/chain';
 import { DisallowPrimitives, AlwaysDisallowedType } from 'gun/types/types';
 import { getItemAsync, setItemAsync } from '../gun'
