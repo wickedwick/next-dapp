@@ -1,5 +1,5 @@
 import React from 'react'
-import EyedentityRegistry from '../contracts/EyedentityRegistry.json'
+const EyedentityRegistry = require('../contracts/EyedentityRegistry.json')
 import { User } from '../types/user'
 import getWeb3 from './web3'
 
@@ -15,7 +15,7 @@ export async function login(setUser: (user: User | null) => void) {
 
   setUser(newUser)
 
-  const web3 = getWeb3()
+  const web3 = await getWeb3()
   const accounts = await web3.eth.getAccounts()
   const networkId = await web3.eth.net.getId()
 

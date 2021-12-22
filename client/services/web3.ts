@@ -1,4 +1,5 @@
 import Web3 from "web3";
+declare var window: any
 
 const getWeb3 = (): Promise<Web3> =>
   new Promise((resolve, reject) => {
