@@ -4,6 +4,7 @@ import { getAllPostIds, getPostData } from '../../lib/posts'
 import Head from 'next/head'
 import Date from '../../components/date'
 import utilStyles from '../../styles/utils.module.css'
+import Auth from '../../components/auth'
 
 const Post = ({ postData }) => {
   return (
@@ -12,6 +13,7 @@ const Post = ({ postData }) => {
         <title>{postData.title}</title>
       </Head>
       <article>
+        <Auth />
         <h1 className={utilStyles.headingXl}>{postData.title}</h1>
         <div className={utilStyles.lightText}>
           <Date dateString={postData.date} />

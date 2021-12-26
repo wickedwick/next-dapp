@@ -20,7 +20,9 @@ export async function login(
         name: username,
       }
 
-      setUser(userData)
+      if (!err) {
+        setUser(userData)
+      }
     })  
 }
 
@@ -47,6 +49,8 @@ export async function signup(
         name: username,
       }
 
-      setUser(userData)
+      if (!err) {
+        setUser(userData)
+      }
     })
 }
