@@ -1,38 +1,52 @@
-import React from 'react'
-const EyedentityRegistry = require('../contracts/EyedentityRegistry.json')
+import { IGunChainReference } from 'gun/types/chain'
 import { User } from '../types/user'
-import getWeb3 from './web3'
 
-export async function login(setUser: (user: User | null) => void) {
-  console.log('login')
-  const newUser = {
-    id: 1,
-    name: 'John Doe',
-    email: '',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  }
+export async function login(
+  gunUser: IGunChainReference<Record<string, any>, any, false>,
+  setUser: (user: User | null) => void,
+  setLoading: (loading: boolean) => void,
+  setError: (error: string | null) => void,
+  username: string,
+  password: string): Promise<void> {
+    setLoading(true)
+    console.log('calling auth')
+    gunUser.auth(username, password, ({ soul, err }: any) => {
+      setLoading(false)
+      setError(err)
+      console.log('err', err)
+      console.log('soul', soul)
+      const userData: User = {
+        id: soul,
+        name: username,
+      }
 
-  setUser(newUser)
-
-  const web3 = await getWeb3()
-  const accounts = await web3.eth.getAccounts()
-  const networkId = await web3.eth.net.getId()
-
-  const deployedNetwork = EyedentityRegistry.networks[networkId]
-  const instance = new web3.eth.Contract(
-    EyedentityRegistry.abi,
-    deployedNetwork && deployedNetwork.address,
-  )
-
-  const isAuthorized = await instance.methods.isAuthorized(accounts[0]).call()
-
-  if (isAuthorized) {
-    // TODO: get user data from GUN
-    // setUser()
-  }
+      setUser(userData)
+    })  
 }
 
-export async function logout(setUser: (user: User | null) => void) {
-  setUser(null)
+export async function logout(
+  gunUser: IGunChainReference<Record<string, any>, any, false>,
+  setUser: (user: User | null) => void) {
+    gunUser.leave()
+    setUser(null)
+}
+
+export async function signup(
+  gunUser: IGunChainReference<Record<string, any>, any, false>,
+  setUser: (user: User | null) => void,
+  setLoading: (loading: boolean) => void,
+  setError: (error: string | null) => void,
+  username: string,
+  password: string): Promise<void> {
+    setLoading(true)
+    gunUser.create(username, password, ({ soul, err }: any) => {
+      setLoading(false)
+      setError(err)
+      const userData: User = {
+        id: soul,
+        name: username,
+      }
+
+      setUser(userData)
+    })
 }

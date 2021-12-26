@@ -1,26 +1,44 @@
-import { IGunChainReference } from 'gun/types/chain';
-import { DisallowPrimitives, AlwaysDisallowedType } from 'gun/types/types';
+import { IGunChainReference } from 'gun/types/chain'
+import { DisallowPrimitives, AlwaysDisallowedType } from 'gun/types/types'
 import { getItemAsync, setItemAsync } from '../gun'
 
-const mockChainRef: IGunChainReference = {
-  once: (callback?: (data: (DisallowPrimitives<IsTop, AlwaysDisallowedType<Record<string, T>>>) | undefined, key: ReferenceKey) => void, option?: {
-    wait: number;
-}): IGunChainReference<T, ReferenceKey>
-}
+// const mockChainRef: IGunChainReference = {
+//   once: (callback?: (data: (DisallowPrimitives<IsTop, AlwaysDisallowedType<Record<string, T>>>) | undefined, key: ReferenceKey) => void, option?: {
+//     wait: number
+//   }): IGunChainReference<T, ReferenceKey>
+// }
 
-let mockGet = jest.fn().mockResolvedValue({ once: jest.fn() } as any)
-let mockSet = jest.fn()
+let mockGet = jest.fn().mockImplementation(() => {
+  return {
+    once: jest.fn()
+  }
+})
+
+let mockSet = jest.fn().mockImplementation(() => {
+  return {
+    once: jest.fn()
+  }
+})
 
 jest.mock('gun', () => {
   return jest.fn().mockImplementation(() => {
     return {
       get: mockGet,
-      set: mockSet
+      set: mockSet,
+      SEA: jest.fn().mockImplementation(() => {
+        return {
+          decrypt: jest.fn().mockImplementation(() => {
+            return Promise.resolve({})
+          }),
+          encrypt: jest.fn().mockImplementation(() => {
+            return Promise.resolve({})
+          })
+        }
+      })
     }
   })
 })
 
-// const gun = jest.createMockFromModule('gun')
 beforeEach(() => {
   mockGet.mockClear()
   mockSet.mockClear()
@@ -30,10 +48,10 @@ describe('gun.ts', () => {
   describe('setItem', () => {
     it('should send an item to the gun', async () => {
       const item = { id: '1' }
-      await setItemAsync(item)
+      await setItemAsync(item, 'some-key')
       // need to assert gun was called
       expect(mockSet).toHaveBeenCalledTimes(1)
-    });
+    })
   })
 
   describe('getItem', () => {

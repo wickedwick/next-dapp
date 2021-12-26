@@ -10,8 +10,17 @@ configure({ adapter: new Adapter() })
 describe('Auth', () => {
   it('Renders the auth component in default state', () => {
     const wrapper = mount(<Auth />)
-    expect(wrapper.find('button').length).toBe(2)
-    expect(wrapper.find('button').first().text()).toBe('Login')
+    expect(wrapper.find('button').length).toBe(1)
+    expect(wrapper.find('button').first().text()).toBe('Login or Register')
+  })
+
+  it('Renders the login/register form on button press', () => {
+    const wrapper = mount(<Auth />)
+    wrapper.find('button').first().simulate('click')
+    expect(wrapper.find('input').length).toBe(2)
+    expect(wrapper.find('button').length).toBe(3)
+    expect(wrapper.find('button').at(1).text()).toBe('Login')
+    expect(wrapper.find('button').last().text()).toBe('Signup')
   })
 
   it('Renders the auth component in logged in state', () => {

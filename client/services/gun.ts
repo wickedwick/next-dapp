@@ -1,22 +1,21 @@
 import Gun, { SEA } from 'gun'
+import { IGunChainReference } from 'gun/types/chain';
 import React from 'react';
 
-export async function getItemAsync<T> (id: string,
+export async function getItemAsync<T> (db: IGunChainReference<any, any, "pre_root">, id: string,
   dataCallback: React.Dispatch<React.SetStateAction<T>>): Promise<void> {
-    const db = new Gun()
     const key = "#some-key"
     const chainReference = db.get(id)
-    console.log('chainReference', chainReference)
+    
     chainReference.once(async (data: T, id: string) => {
       const decryptedData = await SEA.decrypt(data, key) as T
       dataCallback(decryptedData)
     })
-}
-
-export function setItemAsync<T> (item: T): Promise<T> {
-  const db = new Gun()
-
-  return new Promise((resolve, reject) => {
-    db.set(item).once(resolve);
-  });
+  }
+  
+export async function setItemAsync<T> (db: IGunChainReference<any, any, "pre_root">, item: T, key: string): Promise<void> {
+  const encryptionKey = "#some-key"
+  const encryptedData = await SEA.encrypt(item, encryptionKey)
+  const items = db.get(key)
+  items.set({ data: encryptedData })
 }
