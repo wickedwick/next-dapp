@@ -6,6 +6,7 @@ import { LayoutProps } from '../types/components'
 import Nav from './nav'
 
 const name = '[Your Mom]'
+export const siteTitle = 'Next.js Sample Website'
 
 const Layout = ({ children, home }: LayoutProps): JSX.Element => {
   return (
