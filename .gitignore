@@ -1,3 +1,6 @@
+# Client build folder
+client/out/*
+
 # Logs
 logs
 *.log
