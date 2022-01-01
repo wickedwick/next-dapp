@@ -4,11 +4,14 @@ import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
 import { LayoutProps } from '../types/components'
 import Nav from './nav'
+import { useContext } from 'react'
+import { AuthContext } from '../context/AuthContext'
 
-const name = '[Your Mom]'
-export const siteTitle = 'Next.js Sample Website'
+export const siteTitle = 'Travis Wickham'
 
 const Layout = ({ children, home }: LayoutProps): JSX.Element => {
+  const { user } = useContext(AuthContext)
+  const name = user ? `Hey there ${user.name} 👋` : 'Hello Stranger 👋'
   return (
     <div>
       <Head>
@@ -21,6 +24,11 @@ const Layout = ({ children, home }: LayoutProps): JSX.Element => {
       <Nav />
       <div className={styles.container}>
         <header className={styles.header}>
+        <img src="/images/profile.jpg"
+            className={utilStyles.borderCircle}
+            height={144}
+            width={144}
+            alt={name} />
           <h1 className={utilStyles.heading2Xl}>{name}</h1>
         </header>
         <main>{children}</main>

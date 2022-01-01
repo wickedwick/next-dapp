@@ -3,28 +3,18 @@ import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import Layout, { siteTitle } from '../components/layout'
 import utilStyles from '../styles/utils.module.css'
-import { getSortedPostsData } from '../lib/posts'
 import Link from 'next/link'
 import Date from '../components/date'
-import Auth from '../components/auth'
-import { AuthContext } from '../context/AuthContext'
 
 export default function Home({ allPostsData }) {
-  const { user } = useContext(AuthContext)
   return (
     <Layout home>
       <Head>
         <title>{siteTitle}</title>
       </Head>
       <section className={utilStyles.headingMd}>
-        {user ? (
-          <p className="text-3xl font-bold underline">Hey there {user.name}</p>
-        ) : (
-          <p className="text-3xl font-bold underline">Hello, stranger!</p>
-        )}
         <p>
-          (This is a sample website - you’ll be building a site like this in{' '}
-          <a href="https://nextjs.org/learn">our Next.js tutorial</a>.)
+          I'm Travis and I am a Software Engineer. I love building and learning new things. Take a look around, check out my links, and feel free to drop me a line. This site is hosted on the Interplanetary File System and uses Gun JS so it is a decentralized app. 
         </p>
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
@@ -48,7 +38,7 @@ export default function Home({ allPostsData }) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const allPostsData = getSortedPostsData()
+  const allPostsData = []
   return {
     props: {
       allPostsData
