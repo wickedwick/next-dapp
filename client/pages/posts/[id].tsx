@@ -1,24 +1,38 @@
+import { useContext, useEffect, useState } from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import Layout from '../../components/layout'
 import Head from 'next/head'
 import Date from '../../components/date'
+import Layout from '../../components/layout'
+import { GunContext } from '../../context/GunContext'
 import utilStyles from '../../styles/utils.module.css'
-import Auth from '../../components/auth'
+import { BlogPost } from '../../types/blog'
 
-const Post = ({ postData }) => {
+const Post = ({ postId }) => {
+  const { gun } = useContext(GunContext)
+  const [post, setPost] = useState<BlogPost | null>(null)
+
+  useEffect(() => {
+    gun.get('posts').map().once((data) => {
+      if (data && data.id === postId) {
+        setPost(data as BlogPost)
+      }
+    })
+  }, [])
+
   return (
     <Layout home={false}>
       <Head>
-        <title>{postData.title}</title>
+        <title>{post && post.title}</title>
       </Head>
-      <article>
-        <Auth />
-        <h1 className={utilStyles.headingXl}>{postData.title}</h1>
-        <div className={utilStyles.lightText}>
-          <Date dateString={postData.date} />
-        </div>
-        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
-      </article>
+      {post && (
+        <article>
+          <h1 className={utilStyles.headingXl}>{post && post.title}</h1>
+            <div className={utilStyles.lightText}>
+              <Date dateString={post.date} />
+            </div>
+          <div dangerouslySetInnerHTML={{ __html: post && post.content }} />
+        </article>
+      )}
     </Layout>
   )
 }
@@ -26,7 +40,8 @@ const Post = ({ postData }) => {
 export default Post
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = []
+  const paths = ['/posts/kxxqfm49ICWRlkavqgg8']
+  
   return {
     paths,
     fallback: false
@@ -34,10 +49,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const postData = {}
+  const postId = params.id
   return {
     props: {
-      postData
+      postId
     }
   }
 }

@@ -11,7 +11,8 @@ export const siteTitle = 'Travis Wickham'
 
 const Layout = ({ children, home }: LayoutProps): JSX.Element => {
   const { user } = useContext(AuthContext)
-  const name = user ? `Hey there ${user.name} 👋` : 'Hello Stranger 👋'
+  const name = user ? `Hey there ${user.name} 👋` : 'Hello 👋'
+  
   return (
     <div>
       <Head>

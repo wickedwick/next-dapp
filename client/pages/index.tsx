@@ -1,47 +1,68 @@
-import { useContext } from 'react'
-import { GetStaticProps } from 'next'
+import { useContext, useEffect, useState } from 'react'
 import Head from 'next/head'
-import Layout, { siteTitle } from '../components/layout'
-import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
 import Date from '../components/date'
+import Layout, { siteTitle } from '../components/layout'
+import { GunContext } from '../context/GunContext'
+import utilStyles from '../styles/utils.module.css'
+import { BlogPost } from '../types/blog'
 
-export default function Home({ allPostsData }) {
+export default function Home() {
+  const { gun } = useContext(GunContext)
+  const [posts, setPosts] = useState<BlogPost[]>([])
+
+  useEffect(() => {
+    const allPostsData = []
+    
+    gun
+      .get('posts')
+      .map()
+      .on((data) => {
+        if (data && data.id) {
+          allPostsData.push(data)
+          setPosts(allPostsData)
+        }
+      })
+  }, [])
+
   return (
     <Layout home>
       <Head>
         <title>{siteTitle}</title>
       </Head>
       <section className={utilStyles.headingMd}>
-        <p>
-          I'm Travis and I am a Software Engineer. I love building and learning new things. Take a look around, check out my links, and feel free to drop me a line. This site is hosted on the Interplanetary File System and uses Gun JS so it is a decentralized app. 
+        <h3 data-aos="fade-up" className="mb-3">
+          I am a human software engineer named Travis.
+        </h3>
+        <p data-aos="fade-up"data-aos-delay="600" data-aos-duration="600">
+          I love building and learning new things.<br></br>
+          Take a look around, check out my links, and feel free to drop me a line. This site is hosted on the Interplanetary File System and uses Gun JS so it is a decentralized app. 
         </p>
       </section>
-      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-        <h2 className={utilStyles.headingLg}>Blog</h2>
-        <ul className={utilStyles.list}>
-          {allPostsData.map(({ id, date, title }) => (
-            <li className={utilStyles.listItem} key={id}>
-              <Link href={`/posts/${id}`}>
-                <a>{title}</a>
-              </Link>
-              <br />
-              <small className={utilStyles.lightText}>
-                <Date dateString={date} />
-              </small>
-            </li>
-          ))}
-        </ul>
+      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`} data-aos="fade-right" data-aos-delay="1200" data-aos-duration="700">
+        {posts && (
+          <>
+            <h2 className={utilStyles.headingLg}>Blog</h2>
+            <ul className={utilStyles.list}>
+              {posts.map((post) => (
+                <li className={utilStyles.listItem} key={post ? `${post.id}_${post.date}` : ''}>
+                  {post && (
+                    <>
+                      <Link href={`/posts/${post && post.id}`}>
+                        <a>{post.title}</a>
+                      </Link>
+                      <br />
+                      <small className={utilStyles.lightText}>
+                        <Date dateString={post.date} />
+                      </small>
+                    </>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
       </section>
     </Layout>
   )
-}
-
-export const getStaticProps: GetStaticProps = async () => {
-  const allPostsData = []
-  return {
-    props: {
-      allPostsData
-    }
-  }
 }
