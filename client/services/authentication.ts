@@ -9,12 +9,11 @@ export async function login(
   username: string,
   password: string): Promise<void> {
     setLoading(true)
-    console.log('calling auth')
+
     gunUser.auth(username, password, ({ soul, err }: any) => {
       setLoading(false)
       setError(err)
-      console.log('err', err)
-      console.log('soul', soul)
+
       const userData: User = {
         id: soul,
         name: username,

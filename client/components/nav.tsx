@@ -14,11 +14,6 @@ const Nav = (): JSX.Element => {
             <Link href="/">
               <a className="px-3 py-2 m-3 x-4 shadow-sm text-gray-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green text-xl">Wickham.io</a>
             </Link>
-            {user && (
-              <Link href="/posts">
-                <a className="px-3 py-2 m-3 x-4 shadow-sm text-gray-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green text-xl">Posts</a>
-              </Link>
-            )}
             <Link href="/authenticate">
               <a className="px-3 py-2 m-3 x-4 border border-green shadow-sm text-gray-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green">{user ? 'Logout' : 'Login'}</a>
             </Link>

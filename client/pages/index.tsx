@@ -6,24 +6,11 @@ import Layout, { siteTitle } from '../components/layout'
 import { GunContext } from '../context/GunContext'
 import utilStyles from '../styles/utils.module.css'
 import { BlogPost } from '../types/blog'
+import { GetStaticProps } from 'next'
+import { getSortedPostsData } from '../services/posts'
 
-export default function Home() {
+export default function Home({ allPostsData }) {
   const { gun } = useContext(GunContext)
-  const [posts, setPosts] = useState<BlogPost[]>([])
-
-  useEffect(() => {
-    const allPostsData = []
-    
-    gun
-      .get('posts')
-      .map()
-      .on((data) => {
-        if (data && data.id) {
-          allPostsData.push(data)
-          setPosts(allPostsData)
-        }
-      })
-  }, [])
 
   return (
     <Layout home>
@@ -40,11 +27,11 @@ export default function Home() {
         </p>
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`} data-aos="fade-right" data-aos-delay="1200" data-aos-duration="700">
-        {posts && (
+        {allPostsData && (
           <>
             <h2 className={utilStyles.headingLg}>Blog</h2>
             <ul className={utilStyles.list}>
-              {posts.map((post) => (
+              {allPostsData.map((post) => (
                 <li className={utilStyles.listItem} key={post ? `${post.id}_${post.date}` : ''}>
                   {post && (
                     <>
@@ -65,4 +52,13 @@ export default function Home() {
       </section>
     </Layout>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const allPostsData = getSortedPostsData()
+  return {
+    props: {
+      allPostsData
+    }
+  }
 }

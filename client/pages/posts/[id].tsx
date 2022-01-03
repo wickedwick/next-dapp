@@ -1,36 +1,24 @@
-import { useContext, useEffect, useState } from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import Date from '../../components/date'
 import Layout from '../../components/layout'
-import { GunContext } from '../../context/GunContext'
 import utilStyles from '../../styles/utils.module.css'
-import { BlogPost } from '../../types/blog'
+import { BlogPost, PostPath } from '../../types/blog'
+import { getAllPostIds, getPostData } from '../../services/posts'
 
-const Post = ({ postId }) => {
-  const { gun } = useContext(GunContext)
-  const [post, setPost] = useState<BlogPost | null>(null)
-
-  useEffect(() => {
-    gun.get('posts').map().once((data) => {
-      if (data && data.id === postId) {
-        setPost(data as BlogPost)
-      }
-    })
-  }, [])
-
+const Post = ({ postData }): JSX.Element => {
   return (
     <Layout home={false}>
       <Head>
-        <title>{post && post.title}</title>
+        <title>{postData && postData.title}</title>
       </Head>
-      {post && (
+      {postData && (
         <article>
-          <h1 className={utilStyles.headingXl}>{post && post.title}</h1>
+          <h1 className={utilStyles.headingXl}>{postData.title}</h1>
             <div className={utilStyles.lightText}>
-              <Date dateString={post.date} />
+              <Date dateString={postData.date} />
             </div>
-          <div dangerouslySetInnerHTML={{ __html: post && post.content }} />
+          <div dangerouslySetInnerHTML={{ __html: postData.content }} />
         </article>
       )}
     </Layout>
@@ -40,8 +28,7 @@ const Post = ({ postId }) => {
 export default Post
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = ['/posts/kxxqfm49ICWRlkavqgg8']
-  
+  const paths: PostPath[] = getAllPostIds()
   return {
     paths,
     fallback: false
@@ -49,10 +36,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const postId = params.id
+  const postData: BlogPost = await getPostData(params.id as string)
   return {
     props: {
-      postId
+      postData
     }
   }
 }

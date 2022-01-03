@@ -11,6 +11,7 @@ describe('nav', () => {
   it('Renders with logout button', () => {
     const wrapper = shallow(<Nav />)
     expect(wrapper.find('a').length).toBe(2)
+    expect(wrapper.find('a').last().text()).toBe('Login')
   })
 
   it('Renders with logged in user', () => {
@@ -29,7 +30,7 @@ describe('nav', () => {
 
     const wrapper = mount(<AuthContext.Provider value={initialState}><Nav /></AuthContext.Provider>)
 
-    console.log('wrapper.debug()', wrapper.debug())
-    expect(wrapper.find('a').length).toBe(3)
+    expect(wrapper.find('a').length).toBe(2)
+    expect(wrapper.find('a').last().text()).toBe('Logout')
   })
 })
