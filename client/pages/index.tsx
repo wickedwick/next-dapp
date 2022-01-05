@@ -8,6 +8,7 @@ import utilStyles from '../styles/utils.module.css'
 import { BlogPost } from '../types/blog'
 import { GetStaticProps } from 'next'
 import { getSortedPostsData } from '../services/posts'
+import SocialLinks from '../components/socialLinks'
 
 export default function Home({ allPostsData }) {
   const { gun } = useContext(GunContext)
@@ -21,12 +22,15 @@ export default function Home({ allPostsData }) {
         <h3 data-aos="fade-up" className="mb-3">
           I am a human software engineer named Travis.
         </h3>
-        <p data-aos="fade-up"data-aos-delay="600" data-aos-duration="600">
+        <p data-aos="fade-up" data-aos-delay="600" data-aos-duration="600" className="mb-3">
           I love building and learning new things.<br></br>
+        </p>
+        <p data-aos="fade-up"data-aos-delay="1200" data-aos-duration="600" className="mb-3">
           Take a look around, check out my links, and feel free to drop me a line. This site is hosted on the Interplanetary File System and uses Gun JS so it is a decentralized app. 
+          <SocialLinks />
         </p>
       </section>
-      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`} data-aos="fade-right" data-aos-delay="1200" data-aos-duration="700">
+      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`} data-aos="fade-right" data-aos-delay="1800" data-aos-duration="700">
         {allPostsData && (
           <>
             <h2 className={utilStyles.headingLg}>Blog</h2>

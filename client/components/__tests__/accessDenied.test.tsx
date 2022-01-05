@@ -2,8 +2,6 @@ import { configure, mount, shallow } from 'enzyme'
 import React from 'react'
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import AccessDenied from '../accessDenied';
-import { AuthContext } from '../../context/AuthContext';
-import { User } from '../../types/user';
 
 configure({ adapter: new Adapter() })
 
