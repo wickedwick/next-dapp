@@ -3,15 +3,32 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Date from '../components/date'
 import Layout, { siteTitle } from '../components/layout'
-import { GunContext } from '../context/GunContext'
 import utilStyles from '../styles/utils.module.css'
-import { BlogPost } from '../types/blog'
 import { GetStaticProps } from 'next'
 import { getSortedPostsData } from '../services/posts'
-import SocialLinks from '../components/socialLinks'
+import axios from 'axios'
+import { NearBlogPost } from '../types/blog'
+import BlogPost from '../components/blogPost'
 
 export default function Home({ allPostsData }) {
-  const { gun } = useContext(GunContext)
+  const [posts, setPosts] = useState<NearBlogPost[]>([])
+  const [selectedPost, setSelectedPost] = useState<NearBlogPost | null>(null)
+
+  useEffect(() => {
+    axios.get('http://localhost:3001/api/public/content')
+      .then(res => {
+        console.log(res.data)
+        setPosts(res.data)
+      })
+  }, [])
+
+  const handleShowBlog = (slug: string) => {
+    axios.get('http://localhost:3001/api/public/content/' + slug)
+      .then(res => {
+        console.log(res.data)
+        setSelectedPost(res.data)
+      })
+  }
 
   return (
     <Layout home>
@@ -26,25 +43,25 @@ export default function Home({ allPostsData }) {
           I love building and learning new things.<br></br>
         </p>
         <p data-aos="fade-up"data-aos-delay="1200" data-aos-duration="600" className="mb-3">
-          Take a look around, check out my links, and feel free to drop me a line. This site is hosted on the Interplanetary File System and uses Gun JS so it is a decentralized app. 
-          <SocialLinks />
+          Please take a look around and check out my Github/LinkedIn profiles. And feel free to drop me a line.
+        </p>
+        <p data-aos="fade-up"data-aos-delay="1800" data-aos-duration="600" className="mb-3">
+          This site is hosted on the Interplanetary File System, uses Gun JS for data persistence, and gets content that is stored on a decentralized content management system (d CMS).
         </p>
       </section>
-      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`} data-aos="fade-right" data-aos-delay="1800" data-aos-duration="700">
-        {allPostsData && (
+      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`} data-aos="fade-right" data-aos-delay="2400" data-aos-duration="700">
+        {posts && (
           <>
             <h2 className={utilStyles.headingLg}>Blog</h2>
             <ul className={utilStyles.list}>
-              {allPostsData.map((post) => (
-                <li className={utilStyles.listItem} key={post ? `${post.id}_${post.date}` : ''}>
+              {posts.map((post) => (
+                <li className={utilStyles.listItem} key={post ? `${post.slug}` : ''}>
                   {post && (
                     <>
-                      <Link href={`/posts/${post && post.id}`}>
-                        <a>{post.title}</a>
-                      </Link>
+                      <button onClick={() => handleShowBlog(post.slug)}>{post.name}</button>
                       <br />
                       <small className={utilStyles.lightText}>
-                        <Date dateString={post.date} />
+                        <Date dateString={post.createdAt} />
                       </small>
                     </>
                   )}
@@ -54,6 +71,9 @@ export default function Home({ allPostsData }) {
           </>
         )}
       </section>
+      {selectedPost && (
+        <BlogPost blogPost={selectedPost} setSelectedPost={setSelectedPost} />
+      )}
     </Layout>
   )
 }

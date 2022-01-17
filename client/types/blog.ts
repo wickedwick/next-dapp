@@ -18,3 +18,23 @@ export type PostPath = {
 export type ParamsPath = {
   id: string
 }
+
+export type NearContentType = {
+  name: string
+}
+
+export type NearField = {
+  fieldType: string
+  name: string
+  value: string
+}
+
+export type NearBlogPost = {
+  name: string
+  slug: string
+  type: NearContentType
+  values: NearField[]
+  isPublic: boolean
+  createdAt: string
+  updatedAt: string
+}

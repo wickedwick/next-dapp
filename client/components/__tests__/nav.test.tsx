@@ -10,7 +10,7 @@ configure({ adapter: new Adapter() })
 describe('nav', () => {
   it('Renders with logout button', () => {
     const wrapper = shallow(<Nav />)
-    expect(wrapper.find('a').length).toBe(2)
+    expect(wrapper.find('a').length).toBe(4)
     expect(wrapper.find('a').last().text()).toBe('Login')
   })
 
@@ -30,7 +30,7 @@ describe('nav', () => {
 
     const wrapper = mount(<AuthContext.Provider value={initialState}><Nav /></AuthContext.Provider>)
 
-    expect(wrapper.find('a').length).toBe(2)
+    expect(wrapper.find('a').length).toBe(4)
     expect(wrapper.find('a').last().text()).toBe('Logout')
   })
 })

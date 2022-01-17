@@ -25,7 +25,7 @@ const Layout = ({ children, home }: LayoutProps): JSX.Element => {
       <Nav />
       <div className={styles.container}>
         <header className={styles.header}>
-        <img src="/images/profile.jpg"
+        <img src="/images/5214540.jpeg"
             className={utilStyles.borderCircle}
             height={144}
             width={144}
