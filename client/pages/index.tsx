@@ -13,9 +13,10 @@ import BlogPost from '../components/blogPost'
 export default function Home({ allPostsData }) {
   const [posts, setPosts] = useState<NearBlogPost[]>([])
   const [selectedPost, setSelectedPost] = useState<NearBlogPost | null>(null)
-
+  const baseApiUrl = 'https://d-cms-test.herokuapp.com/api/public/content'
+  
   useEffect(() => {
-    axios.get('http://localhost:3001/api/public/content')
+    axios.get(baseApiUrl)
       .then(res => {
         console.log(res.data)
         setPosts(res.data)
@@ -23,7 +24,7 @@ export default function Home({ allPostsData }) {
   }, [])
 
   const handleShowBlog = (slug: string) => {
-    axios.get('http://localhost:3001/api/public/content/' + slug)
+    axios.get(baseApiUrl + '/' + slug)
       .then(res => {
         console.log(res.data)
         setSelectedPost(res.data)
