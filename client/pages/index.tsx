@@ -1,20 +1,17 @@
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Head from 'next/head'
-import Link from 'next/link'
 import Date from '../components/date'
 import Layout, { siteTitle } from '../components/layout'
 import utilStyles from '../styles/utils.module.css'
-import { GetStaticProps } from 'next'
-import { getSortedPostsData } from '../services/posts'
 import axios from 'axios'
 import { NearBlogPost } from '../types/blog'
 import BlogPost from '../components/blogPost'
 
-export default function Home({ allPostsData }) {
+export default function Home() {
   const [posts, setPosts] = useState<NearBlogPost[]>([])
   const [selectedPost, setSelectedPost] = useState<NearBlogPost | null>(null)
   const baseApiUrl = 'https://d-cms-test.herokuapp.com/api/public/content'
-  
+
   useEffect(() => {
     axios.get(baseApiUrl)
       .then(res => {
@@ -77,13 +74,4 @@ export default function Home({ allPostsData }) {
       )}
     </Layout>
   )
-}
-
-export const getStaticProps: GetStaticProps = async () => {
-  const allPostsData = getSortedPostsData()
-  return {
-    props: {
-      allPostsData
-    }
-  }
 }
