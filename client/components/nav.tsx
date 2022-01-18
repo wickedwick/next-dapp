@@ -1,7 +1,7 @@
-import Link from "next/link"
-import { useContext } from "react"
-import { BsGithub, BsLinkedin } from "react-icons/bs"
-import { AuthContext } from "../context/AuthContext"
+import Link from 'next/link'
+import { useContext } from 'react'
+import { BsGithub, BsLinkedin } from 'react-icons/bs'
+import { AuthContext } from '../context/AuthContext'
 
 const Nav = (): JSX.Element => {
   const { user } = useContext(AuthContext)

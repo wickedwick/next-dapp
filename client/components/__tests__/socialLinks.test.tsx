@@ -1,4 +1,4 @@
-import { configure, mount, shallow } from 'enzyme'
+import { configure, shallow } from 'enzyme'
 import React from 'react'
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import SocialLinks from '../socialLinks';

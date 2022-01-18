@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import { BsGithub, BsLinkedin } from 'react-icons/bs'
+
 const SocialLinks = (): JSX.Element => {
   return (
     <div className="border border-white mt-5">

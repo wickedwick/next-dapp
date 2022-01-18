@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiRequest, NextApiResponse } from 'next'
 
 export default function authenticatorCodeHandler(req: NextApiRequest, res: NextApiResponse) {
   const verifiedCode: string = 'CywjEdYmbMQ4Q3wr'

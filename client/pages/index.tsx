@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react'
+import axios from 'axios'
 import Head from 'next/head'
-import Date from '../components/date'
+import { useEffect, useState } from 'react'
+import BlogPost from '../components/blogPost'
+import BlogPostList from '../components/blogPostList'
 import Layout, { siteTitle } from '../components/layout'
 import utilStyles from '../styles/utils.module.css'
-import axios from 'axios'
 import { NearBlogPost } from '../types/blog'
-import BlogPost from '../components/blogPost'
 
 export default function Home() {
   const [posts, setPosts] = useState<NearBlogPost[]>([])
@@ -20,7 +20,7 @@ export default function Home() {
       })
   }, [])
 
-  const handleShowBlog = (slug: string) => {
+  const handleShowBlog = (slug: string): void => {
     axios.get(baseApiUrl + '/' + slug)
       .then(res => {
         console.log(res.data)
@@ -51,21 +51,7 @@ export default function Home() {
         {posts && (
           <>
             <h2 className={utilStyles.headingLg}>Blog</h2>
-            <ul className={utilStyles.list}>
-              {posts.map((post) => (
-                <li className={utilStyles.listItem} key={post ? `${post.slug}` : ''}>
-                  {post && (
-                    <>
-                      <button className="underline" onClick={() => handleShowBlog(post.slug)}>{post.name}</button>
-                      <br />
-                      <small className={utilStyles.lightText}>
-                        <Date dateString={post.createdAt} />
-                      </small>
-                    </>
-                  )}
-                </li>
-              ))}
-            </ul>
+            <BlogPostList blogPosts={posts} handleShowBlog={handleShowBlog} />
           </>
         )}
       </section>

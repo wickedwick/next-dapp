@@ -1,7 +1,6 @@
-import ReactMarkdown from "react-markdown"
-import { NearBlogPost } from "../types/blog"
-import Date from "./date"
-import utilStyles from '../styles/utils.module.css'
+import Date from './date'
+import { NearBlogPost } from '../types/blog'
+import ReactMarkdown from 'react-markdown'
 
 const BlogPost = ({ blogPost, setSelectedPost }: { blogPost: NearBlogPost, setSelectedPost: (blog: NearBlogPost | null) => void }) => {
   return (
@@ -17,7 +16,7 @@ const BlogPost = ({ blogPost, setSelectedPost }: { blogPost: NearBlogPost, setSe
                 <h3 className="font-bold text-xl">{blogPost.values.find(bp => bp.name === 'TItle')?.value}</h3>
                 <p>{blogPost.values.find(bp => bp.name === 'Subtitle')?.value}</p>
                 {blogPost.values.find(bp => bp.name === 'PostedDate') && (
-                  <small className={utilStyles.lightText}>
+                  <small className="text-gray">
                     <Date dateString={blogPost.values.find(bp => bp.name === 'PostedDate')?.value} />
                   </small>
                 )}

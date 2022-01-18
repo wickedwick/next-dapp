@@ -6,6 +6,8 @@ import BlogPost from '../blogPost'
 
 configure({ adapter: new Adapter() })
 
+jest.mock('react-markdown')
+
 describe('<BlogPost />', () => {
   const setSelectedPost = jest.fn()
   const blog: NearBlogPost = {

@@ -1,5 +1,4 @@
-import React from 'react'
-import { login, logout, signup } from '../authentication'
+import { login, signup } from '../authentication'
 import Gun from 'gun'
 
 let mockGet = jest.fn().mockImplementation(() => {

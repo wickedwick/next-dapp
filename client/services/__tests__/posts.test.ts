@@ -12,25 +12,6 @@ jest.mock('fs', () =>  {
   }
 })
 
-// jest.mock('gray-matter', () => {
-//   return {
-//     default: jest.fn().mockImplementation(() => {
-//       return {
-//         data: {
-//           title: 'Two Forms of Pre-rendering'
-//         }
-//       }
-//     }),
-//     matter: jest.fn().mockImplementation(() => {
-//       return {
-//         data: {
-//           title: 'Two Forms of Pre-rendering'
-//         }
-//       }
-//     })
-//   }
-// })
-
 jest.mock('remark', () => {
   return {
     remark: jest.fn().mockImplementation(() => {

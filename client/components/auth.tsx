@@ -1,5 +1,5 @@
-import { useContext, useState } from "react"
-import { AuthContext } from "../context/AuthContext"
+import { useContext, useState } from 'react'
+import { AuthContext } from '../context/AuthContext'
 
 const Auth = (): JSX.Element => {
   const { login, logout, register, user } = useContext(AuthContext)
