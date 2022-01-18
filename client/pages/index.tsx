@@ -56,7 +56,7 @@ export default function Home() {
                 <li className={utilStyles.listItem} key={post ? `${post.slug}` : ''}>
                   {post && (
                     <>
-                      <button onClick={() => handleShowBlog(post.slug)}>{post.name}</button>
+                      <button className="underline" onClick={() => handleShowBlog(post.slug)}>{post.name}</button>
                       <br />
                       <small className={utilStyles.lightText}>
                         <Date dateString={post.createdAt} />

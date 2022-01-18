@@ -1,5 +1,7 @@
+import ReactMarkdown from "react-markdown"
 import { NearBlogPost } from "../types/blog"
 import Date from "./date"
+import utilStyles from '../styles/utils.module.css'
 
 const BlogPost = ({ blogPost, setSelectedPost }: { blogPost: NearBlogPost, setSelectedPost: (blog: NearBlogPost | null) => void }) => {
   return (
@@ -12,12 +14,14 @@ const BlogPost = ({ blogPost, setSelectedPost }: { blogPost: NearBlogPost, setSe
             <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
               <div className="bg-white text-gray-dark px-4 py-5 border-b border-gray-200 sm:px-6">
                 <button onClick={() => setSelectedPost(null)}>&times;</button>
-                <h3>{blogPost.values.find(bp => bp.name === 'TItle')?.value}</h3>
+                <h3 className="font-bold text-xl">{blogPost.values.find(bp => bp.name === 'TItle')?.value}</h3>
                 <p>{blogPost.values.find(bp => bp.name === 'Subtitle')?.value}</p>
                 {blogPost.values.find(bp => bp.name === 'PostedDate') && (
-                  <Date dateString={blogPost.values.find(bp => bp.name === 'PostedDate')?.value} />
+                  <small className={utilStyles.lightText}>
+                    <Date dateString={blogPost.values.find(bp => bp.name === 'PostedDate')?.value} />
+                  </small>
                 )}
-                <p>{blogPost.values.find(bp => bp.name === 'Body')?.value}</p>
+                <p><ReactMarkdown>{blogPost.values.find(bp => bp.name === 'Body')?.value}</ReactMarkdown></p>
               </div>
             </div>
           </div>
