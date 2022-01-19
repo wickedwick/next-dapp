@@ -13,7 +13,7 @@ export default function Home() {
   const baseApiUrl = 'https://d-cms-test.herokuapp.com/api/public/content'
 
   useEffect(() => {
-    axios.get(baseApiUrl)
+    axios.get(baseApiUrl + '?type=blog')
       .then(res => {
         console.log(res.data)
         setPosts(res.data)
