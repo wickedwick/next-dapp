@@ -15,7 +15,6 @@ export default function Home() {
   useEffect(() => {
     axios.get(baseApiUrl + '?type=blog')
       .then(res => {
-        console.log(res.data)
         setPosts(res.data)
       })
   }, [])
@@ -23,7 +22,6 @@ export default function Home() {
   const handleShowBlog = (slug: string): void => {
     axios.get(baseApiUrl + '/' + slug)
       .then(res => {
-        console.log(res.data)
         setSelectedPost(res.data)
       })
   }
@@ -34,7 +32,7 @@ export default function Home() {
         <title>{siteTitle}</title>
       </Head>
       <section className={utilStyles.headingMd}>
-        <h3 data-aos="fade-up" className="mb-3">
+        <h3 data-aos="fade-up" className="text-3xl font-medium leading-tight mt-0 mb-3 text-white">
           I am a human software engineer named Travis.
         </h3>
         <p data-aos="fade-up" data-aos-delay="600" data-aos-duration="600" className="mb-3">

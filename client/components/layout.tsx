@@ -25,12 +25,16 @@ const Layout = ({ children, home }: LayoutProps): JSX.Element => {
       <Nav />
       <div className={styles.container}>
         <header className={styles.header}>
-        <img src="/images/5214540.jpeg"
-            className={utilStyles.borderCircle}
-            height={144}
-            width={144}
-            alt={name} />
-          <h1 className={utilStyles.heading2Xl}>{name}</h1>
+        {home && (
+          <>
+            <img src="/images/5214540.jpeg"
+              className={utilStyles.borderCircle}
+              height={144}
+              width={144}
+              alt={name} />
+            <h1 className={utilStyles.heading2Xl}>{name}</h1>
+          </>
+        )}
         </header>
         <main>{children}</main>
         {!home && (
