@@ -16,7 +16,7 @@ export default function Hackathon() {
         const pageContent: ProjectPageContent = {
           title: res.data.values.find(c => c.name === 'Title')?.value,
           description: res.data.values.find(c => c.name === 'Description')?.value,
-          links: res.data.values.find(c => c.name === 'Links')?.values,
+          links: res.data.values.find(c => c.name === 'Links')?.value,
         }
         setContent(pageContent)
       })
@@ -30,11 +30,17 @@ export default function Hackathon() {
       {!content && <h1>Loading...</h1>}
       {content && (
         <section data-aos="fade-up" className={utilStyles.headingMd}>
-          <h3 className="text-3xl font-medium leading-tight mt-0 mb-3 text-white">
-            {content.title}
-          </h3>
-          <div dangerouslySetInnerHTML={{ __html: content.description }} />
-          <div dangerouslySetInnerHTML={{ __html: content.links }} />
+          <div className="bg-white text-gray-dark px-5 pt-3 pb-1 mb-3">
+            <h2 className="text-3xl font-medium leading-tight mt-0 mb-5">
+              {content.title}
+            </h2>
+          </div>
+          <div className="bg-white text-gray-dark px-5 pt-2 pb-5">
+            <div dangerouslySetInnerHTML={{ __html: content.description }} />
+          </div>
+          <div className="bg-white text-gray-dark p-5 py-2 mt-5">
+            <div dangerouslySetInnerHTML={{ __html: content.links }} />
+          </div>
         </section>
       )}
     </Layout>
