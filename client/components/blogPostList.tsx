@@ -11,7 +11,7 @@ const BlogPostList = ({ blogPosts, handleShowBlog }: { blogPosts: NearBlogPost[]
               <button className="underline" onClick={() => handleShowBlog(post.slug)}>{post.name}</button>
               <br />
               <small className="text-gray">
-                <Date dateString={post.createdAt} />
+                Updated on <Date dateString={post.updatedAt} />
               </small>
             </>
           )}

@@ -29,12 +29,13 @@ export default function Hackathon() {
       </Head>
       {!content && <h1>Loading...</h1>}
       {content && (
+        <>
+        <div className="text-gray-light px-5 pt-3 pb-1 mb-3">
+          <h1 className="text-4xl font-medium leading-tight mt-0 mb-5">
+            {content.title}
+          </h1>
+        </div>
         <section data-aos="fade-up" className={utilStyles.headingMd}>
-          <div className="bg-gray-light text-gray-dark px-5 pt-3 pb-1 mb-3">
-            <h2 className="text-3xl font-medium leading-tight mt-0 mb-5">
-              {content.title}
-            </h2>
-          </div>
           <div className="bg-gray-light text-gray-dark px-5 pt-2 pb-5">
             <div dangerouslySetInnerHTML={{ __html: content.description }} />
           </div>
@@ -42,6 +43,7 @@ export default function Hackathon() {
             <div dangerouslySetInnerHTML={{ __html: content.links }} />
           </div>
         </section>
+        </>
       )}
     </Layout>
   )
