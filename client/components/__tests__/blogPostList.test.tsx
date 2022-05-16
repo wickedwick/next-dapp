@@ -22,7 +22,7 @@ describe('<BlogPostList />', () => {
       ],
       isPublic: true,
       createdAt: new Date().toISOString(),
-      updatedAt: ''
+      updatedAt: new Date().toISOString()
     },
     {
       name: 'Test Blog2',
@@ -37,7 +37,7 @@ describe('<BlogPostList />', () => {
       ],
       isPublic: true,
       createdAt: new Date().toISOString(),
-      updatedAt: ''
+      updatedAt: new Date().toISOString()
     }
   ]
 

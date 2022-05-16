@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from 'react'
-import { AppProps } from 'next/app'
-import AOS from 'aos'
-import { IGunChainReference } from 'gun/types/chain'
-import { AuthContext } from '../context/AuthContext'
-import { GunContext } from '../context/GunContext'
-import { login, logout, signup } from '../services/authentication'
-import { db, user as gunUser } from '../services/user'
-import { User } from '../types/user'
-
-import "aos/dist/aos.css"
-import '../styles/global.css'
+import AOS from 'aos';
+import getWeb3, { abi, contractAddress } from '../services/web3';
+import React, { useEffect, useState } from 'react';
+import Web3 from 'web3';
+import { AppProps } from 'next/app';
+import '../styles/global.css';
+import 'aos/dist/aos.css';
+import { Web3Context } from '../context/Web3Context';
+import { AppContext } from '../context/AppContext';
+import { AppContextParams, Web3ContextParams } from '../types/context';
 
 function App({ Component, pageProps }: AppProps) {
-  const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [web3, setWeb3] = useState<Web3 | null>(null)
+  const [contract, setContract] = useState(null)
+  const [accounts, setAccounts] = useState<Array<string>>([])
 
   useEffect(() => {
     AOS.init({
@@ -22,29 +22,36 @@ function App({ Component, pageProps }: AppProps) {
       once: true,
       offset: 50,
     })
+
+    getWeb3().then(w3 => {
+      setWeb3(w3)
+      const web3Contract = new w3.eth.Contract(abi, contractAddress)
+      setContract(web3Contract)
+    })
   }, [])
 
-  const initialState: { isLoggedIn: boolean, login: (username: string, password: string) => void, logout: () => void, register: (username: string, password: string) => void, user: User | null } = {
-    isLoggedIn: false,
-    login: (username: string, password: string) => login(gunUser, setUser, setLoading, setError, username, password),
-    logout: () => logout(gunUser, setUser),
-    register: (username: string, password: string) => signup(gunUser, setUser, setLoading, setError, username, password),
-    user: user
+  const appContextParams: AppContextParams = {
+    isLoading: loading,
+    errorMessage: error,
+    setLoading,
+    setErrorMessage: setError,
   }
 
-  const gunState: { gun: IGunChainReference<Record<string, any>, any, false>, gunUser: IGunChainReference<Record<string, any>, any, false> } = {
-    gun: db,
-    gunUser: gunUser
+  const web3ContextParams: Web3ContextParams = {
+    web3,
+    accounts,
+    contract,
+    setAccounts,
   }
-
+  
   return (
-    <GunContext.Provider value={gunState}> 
-      <AuthContext.Provider value={initialState}>
-        {error && <p>{error}</p>}
-        {loading && <p>Loading...</p>}
-        <Component {...pageProps} />
-      </AuthContext.Provider>
-    </GunContext.Provider>
+    <AppContext.Provider value={appContextParams}>
+      <Web3Context.Provider value={web3ContextParams}>
+          {error && <p>{error}</p>}
+          {loading && <p>Loading...</p>}
+          <Component {...pageProps} />
+      </Web3Context.Provider>
+    </AppContext.Provider>
   )
 }
 

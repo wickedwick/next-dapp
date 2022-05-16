@@ -16,7 +16,7 @@ describe('<BlogPost />', () => {
     type: { name: '' },
     values: [
       {
-        name: 'TItle',
+        name: 'Title',
         value: 'Test Blog',
         fieldType: 'string'
       }

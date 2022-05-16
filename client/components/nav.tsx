@@ -1,10 +1,8 @@
 import Link from 'next/link'
-import { useContext } from 'react'
 import { BsGithub, BsLinkedin } from 'react-icons/bs'
-import { AuthContext } from '../context/AuthContext'
+import ConnectButton from './ConnectButton'
 
 const Nav = (): JSX.Element => {
-  const { user } = useContext(AuthContext)
   return (
     <nav className="bg-gray">
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
@@ -30,9 +28,7 @@ const Nav = (): JSX.Element => {
                 <BsGithub />
               </a>
             </Link>
-            <Link href="/authenticate">
-              <a className="px-3 py-2 m-3 x-4 border border-green shadow-sm text-gray-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green">{user ? 'Logout' : 'Login'}</a>
-            </Link>
+            <ConnectButton />
           </div>
         </div>
       </div>

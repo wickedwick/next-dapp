@@ -1,7 +1,5 @@
-import { useContext } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
-import { AuthContext } from '../context/AuthContext'
 import styles from './layout.module.css'
 import Nav from './nav'
 import utilStyles from '../styles/utils.module.css'
@@ -10,8 +8,7 @@ import { LayoutProps } from '../types/components'
 export const siteTitle = 'Wickham.io'
 
 const Layout = ({ children, home }: LayoutProps): JSX.Element => {
-  const { user } = useContext(AuthContext)
-  const name = user ? `Hey there ${user.name} 👋` : 'Hello 👋'
+  const name = 'Hello 👋'
   
   return (
     <>
