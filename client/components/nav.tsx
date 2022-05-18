@@ -28,7 +28,7 @@ const Nav = (): JSX.Element => {
                 <BsGithub />
               </a>
             </Link>
-            <ConnectButton />
+            {/* <ConnectButton /> */}
           </div>
         </div>
       </div>
