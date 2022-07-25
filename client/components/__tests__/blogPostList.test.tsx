@@ -1,14 +1,16 @@
-import { configure, mount } from 'enzyme'
-import React from 'react'
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
-import { StrapiBlogPost } from '../../types/blog'
 import BlogPostList from '../blogPostList'
+import React from 'react'
+import { configure, mount, ReactWrapper } from 'enzyme'
+import { StrapiBlogPost } from '../../types/blog'
 
 configure({ adapter: new Adapter() })
 
 describe('<BlogPostList />', () => {
+  let wrapper: ReactWrapper<any, Readonly<{}>, React.Component<{}, {}, any>>
   const handleShowBlog: (id: number) => void = jest.fn()
-  const date = new Date(2022, 12, 31)
+  const date = new Date(2022, 12, 31).toISOString()
+  
   const blogs: StrapiBlogPost[] = [
     {
       id: 1,
@@ -30,14 +32,17 @@ describe('<BlogPostList />', () => {
     }
   ]
 
+  beforeEach(() => {
+    jest.resetAllMocks()
+    wrapper = mount(<BlogPostList blogPosts={blogs} handleShowBlog={handleShowBlog} />)
+  })
+
   it('Renders the list of blog posts', () => {
-    const wrapper = mount(<BlogPostList blogPosts={blogs} handleShowBlog={handleShowBlog} />)
     expect(wrapper.find('li').length).toBe(2)
     expect(wrapper).toMatchSnapshot()
   })
 
   it('Handles blog selection', () => {
-    const wrapper = mount(<BlogPostList blogPosts={blogs} handleShowBlog={handleShowBlog} />)
     wrapper.find('button').first().simulate('click')
     expect(handleShowBlog).toHaveBeenCalled()
   })

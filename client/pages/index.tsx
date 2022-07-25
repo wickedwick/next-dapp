@@ -1,11 +1,11 @@
 import axios from 'axios'
-import Head from 'next/head'
-import { useEffect, useState } from 'react'
 import BlogPost from '../components/blogPost'
 import BlogPostList from '../components/blogPostList'
+import Head from 'next/head'
 import Layout, { siteTitle } from '../components/layout'
 import utilStyles from '../styles/utils.module.css'
 import { StrapiBlogPost } from '../types/blog'
+import { useEffect, useState } from 'react'
 
 export default function Home() {
   const [posts, setPosts] = useState<StrapiBlogPost[]>([])

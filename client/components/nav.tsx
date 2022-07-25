@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { BsGithub, BsLinkedin } from 'react-icons/bs'
-import ConnectButton from './ConnectButton'
 
 const Nav = (): JSX.Element => {
   return (
@@ -13,9 +12,6 @@ const Nav = (): JSX.Element => {
             <Link href="/">
               <a className="px-3 py-2 m-3 x-4 shadow-sm text-gray-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green text-xl">Wickham.io</a>
             </Link>
-            {/* <Link href="/hackathon">
-              <a className="px-3 py-2 m-3 x-4 shadow-sm text-gray-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green text-xl">Hackathon</a>
-            </Link> */}
           </div>
           <div className="flex-1 flex items-end justify-end">
             <Link href="https://www.linkedin.com/in/travis-wickham-csd-66273a69/">
@@ -28,7 +24,6 @@ const Nav = (): JSX.Element => {
                 <BsGithub />
               </a>
             </Link>
-            {/* <ConnectButton /> */}
           </div>
         </div>
       </div>

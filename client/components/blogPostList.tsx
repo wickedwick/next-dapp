@@ -1,8 +1,10 @@
-import { StrapiBlogPost } from '../types/blog'
 import DateFormatter from './date'
+import { BlogPostListProps } from '../types/components'
 
-const BlogPostList = ({ blogPosts, handleShowBlog }: { blogPosts: StrapiBlogPost[], handleShowBlog: (id: number) => void }) => {
-  return (
+const BlogPostList = (props: BlogPostListProps) => {
+  const { blogPosts, handleShowBlog } = props
+
+  return ( 
     <ul className="list-none p-0 m-0">
       {blogPosts.map((post) => (
         <li className="mb-3" key={post ? `${post.slug}` : ''}>

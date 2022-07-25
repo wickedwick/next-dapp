@@ -1,26 +1,26 @@
-import AOS from 'aos';
-import getWeb3, { abi, contractAddress } from '../services/web3';
-import React, { useEffect, useState } from 'react';
-import Web3 from 'web3';
-import { AppContext } from '../context/AppContext';
-import { AppContextParams, Web3ContextParams } from '../types/context';
-import { AppProps } from 'next/app';
-import { Web3Context } from '../context/Web3Context';
-import '../styles/global.css';
-import 'aos/dist/aos.css';
+import AOS from 'aos'
+import getWeb3, { abi, contractAddress } from '../services/web3'
+import React, { useEffect, useState } from 'react'
+import Web3 from 'web3'
+import { AppContext } from '../context/appContext'
+import { AppContextParams, Web3ContextParams } from '../types/context'
+import { AppProps } from 'next/app'
+import { Web3Context } from '../context/web3Context'
+import '../styles/global.css'
+import 'aos/dist/aos.css'
 
 function App({ Component, pageProps }: AppProps) {
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
-  const [web3, setWeb3] = useState<Web3 | null>(null)
-  const [contract, setContract] = useState(null)
   const [accounts, setAccounts] = useState<Array<string>>([])
+  const [contract, setContract] = useState(null)
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [web3, setWeb3] = useState<Web3 | null>(null)
 
   useEffect(() => {
     AOS.init({
       easing: "ease-out-cubic",
-      once: true,
       offset: 50,
+      once: true,
     })
 
     getWeb3().then(w3 => {
@@ -31,16 +31,16 @@ function App({ Component, pageProps }: AppProps) {
   }, [])
 
   const appContextParams: AppContextParams = {
-    isLoading: loading,
     errorMessage: error,
-    setLoading,
+    isLoading: loading,
     setErrorMessage: setError,
+    setLoading,
   }
 
   const web3ContextParams: Web3ContextParams = {
-    web3,
     accounts,
     contract,
+    web3,
     setAccounts,
   }
   

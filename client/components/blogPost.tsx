@@ -1,7 +1,9 @@
 import DateFormatter from './date'
-import { StrapiBlogPost } from '../types/blog'
+import { BlogPostProps } from '../types/components'
 
-const BlogPost = ({ blogPost, setSelectedPost }: { blogPost: StrapiBlogPost, setSelectedPost: (blog: StrapiBlogPost | null) => void }) => {
+const BlogPost = (props: BlogPostProps) => {
+  const { blogPost, setSelectedPost } = props
+
   return (
     <>
       {blogPost && (

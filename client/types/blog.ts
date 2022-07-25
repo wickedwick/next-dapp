@@ -1,22 +1,24 @@
 export type BlogPost = {
   id: string
-  title: string
   content: string
   date: string
+  title: string
 }
 
 export type BlogPostMetadata = {
   id: string
-  title: string
   date: string
+  title: string
 }
 
-export type PostPath = {
-  params: ParamsPath
-}
-
-export type ParamsPath = {
-  id: string
+export type NearBlogPost = {
+  isPublic: boolean
+  name: string
+  slug: string
+  type: NearContentType
+  values: NearField[]
+  createdAt: string
+  updatedAt: string
 }
 
 export type NearContentType = {
@@ -29,23 +31,21 @@ export type NearField = {
   value: string
 }
 
-export type NearBlogPost = {
-  name: string
-  slug: string
-  type: NearContentType
-  values: NearField[]
-  isPublic: boolean
-  createdAt: string
-  updatedAt: string
+export type ParamsPath = {
+  id: string
+}
+
+export type PostPath = {
+  params: ParamsPath
 }
 
 export type StrapiBlogPost = {
   id: number
-  title: string
+  body: string
+  postedDate?: string
   slug: string
   subtitle?: string
-  postedDate?: string
-  body: string
+  title: string
   created_at: string
   updated_at: string
 }

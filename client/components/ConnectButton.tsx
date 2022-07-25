@@ -1,7 +1,7 @@
-import { useContext } from "react"
-import { Web3Context } from "../context/Web3Context"
-import { connectToWallet } from "../services/web3"
-import { FaWallet } from "react-icons/fa"
+import { connectToWallet } from '../services/web3'
+import { FaWallet } from 'react-icons/fa'
+import { useContext } from 'react'
+import { Web3Context } from '../context/web3Context'
 
 const ConnectButton = (): JSX.Element => {
   const { accounts, setAccounts } = useContext(Web3Context)

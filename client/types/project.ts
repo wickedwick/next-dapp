@@ -1,6 +1,6 @@
 export type ProjectPageContent = {
-  title: string
   description: string
-  links: string
   documentation?: string
+  links: string
+  title: string
 }

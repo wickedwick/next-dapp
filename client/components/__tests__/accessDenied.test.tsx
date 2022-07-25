@@ -1,7 +1,7 @@
-import { configure, mount, shallow } from 'enzyme'
+import AccessDenied from '../accessDenied'
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
 import React from 'react'
-import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
-import AccessDenied from '../accessDenied';
+import { configure, shallow } from 'enzyme'
 
 configure({ adapter: new Adapter() })
 

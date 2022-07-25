@@ -1,7 +1,7 @@
-import { configure, mount, shallow } from 'enzyme'
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
+import Nav from '../nav'
 import React from 'react'
-import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
-import Nav from '../nav';
+import { configure, shallow } from 'enzyme'
 
 configure({ adapter: new Adapter() })
 

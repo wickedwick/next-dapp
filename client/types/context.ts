@@ -1,9 +1,9 @@
 import Web3 from "web3"
 
 export type Web3ContextParams = {
-  web3: Web3
   accounts: Array<string>
   contract: any
+  web3: Web3
   setAccounts: (accounts: Array<string>) => void
 }
 

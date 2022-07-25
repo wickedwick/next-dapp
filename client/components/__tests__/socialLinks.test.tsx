@@ -1,7 +1,7 @@
-import { configure, shallow } from 'enzyme'
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
 import React from 'react'
-import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
-import SocialLinks from '../socialLinks';
+import SocialLinks from '../socialLinks'
+import { configure, shallow } from 'enzyme'
 
 configure({ adapter: new Adapter() })
 

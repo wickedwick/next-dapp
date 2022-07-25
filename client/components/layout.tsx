@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import styles from './layout.module.css'
 import Nav from './nav'
+import styles from './layout.module.css'
 import utilStyles from '../styles/utils.module.css'
 import { LayoutProps } from '../types/components'
 
