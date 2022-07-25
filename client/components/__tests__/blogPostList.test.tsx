@@ -1,48 +1,44 @@
 import { configure, mount } from 'enzyme'
 import React from 'react'
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
-import { NearBlogPost } from '../../types/blog'
+import { StrapiBlogPost } from '../../types/blog'
 import BlogPostList from '../blogPostList'
 
 configure({ adapter: new Adapter() })
 
 describe('<BlogPostList />', () => {
-  const handleShowBlog: (slug: string) => void = jest.fn()
-  const blogs: NearBlogPost[] = [
+  const handleShowBlog: (id: number) => void = jest.fn()
+  const date = new Date(2022, 12, 31)
+  const blogs: StrapiBlogPost[] = [
     {
-      name: 'Test Blog',
+      id: 1,
+      title: 'Test Blog',
       slug: 'test-blog',
-      type: { name: 'blog' },
-      values: [
-        {
-          name: 'TItle',
-          value: 'Test Blog',
-          fieldType: 'string'
-        }
-      ],
-      isPublic: true,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+      body: 'This is a post',
+      created_at: date,
+      updated_at: date
     },
     {
-      name: 'Test Blog2',
+      id: 1,
+      title: 'Test Blog2',
+      subtitle: 'Blog subtitle',
+      postedDate: date,
       slug: 'test-blog-2',
-      type: { name: 'blog' },
-      values: [
-        {
-          name: 'TItle',
-          value: 'Test Blog',
-          fieldType: 'string'
-        }
-      ],
-      isPublic: true,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+      body: 'This is a post',
+      created_at: date,
+      updated_at: date
     }
   ]
 
   it('Renders the list of blog posts', () => {
     const wrapper = mount(<BlogPostList blogPosts={blogs} handleShowBlog={handleShowBlog} />)
     expect(wrapper.find('li').length).toBe(2)
+    expect(wrapper).toMatchSnapshot()
+  })
+
+  it('Handles blog selection', () => {
+    const wrapper = mount(<BlogPostList blogPosts={blogs} handleShowBlog={handleShowBlog} />)
+    wrapper.find('button').first().simulate('click')
+    expect(handleShowBlog).toHaveBeenCalled()
   })
 })

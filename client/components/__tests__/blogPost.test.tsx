@@ -1,7 +1,7 @@
 import { configure, mount } from 'enzyme'
 import React from 'react'
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
-import { NearBlogPost } from '../../types/blog'
+import { StrapiBlogPost } from '../../types/blog'
 import BlogPost from '../blogPost'
 
 configure({ adapter: new Adapter() })
@@ -10,20 +10,13 @@ jest.mock('react-markdown')
 
 describe('<BlogPost />', () => {
   const setSelectedPost = jest.fn()
-  const blog: NearBlogPost = {
-    name: 'Test Blog',
+  const blog: StrapiBlogPost = {
+    id: 2,
+    title: 'Test Blog',
     slug: 'test-blog',
-    type: { name: '' },
-    values: [
-      {
-        name: 'Title',
-        value: 'Test Blog',
-        fieldType: 'string'
-      }
-    ],
-    isPublic: true,
-    createdAt: '',
-    updatedAt: ''
+    body: '',
+    created_at: new Date(),
+    updated_at: new Date()
   }
 
   it('Renders a BlogPost', () => {

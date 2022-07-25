@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
-import Date from '../../components/date'
+import DateFormatter from '../../components/date'
 import Layout from '../../components/layout'
 import utilStyles from '../../styles/utils.module.css'
 import { BlogPost, PostPath } from '../../types/blog'
@@ -16,7 +16,7 @@ const Post = ({ postData }): JSX.Element => {
         <article>
           <h1 className={utilStyles.headingXl}>{postData.title}</h1>
             <div className={utilStyles.lightText}>
-              <Date dateString={postData.date} />
+              <DateFormatter dateString={postData.date} />
             </div>
           <div dangerouslySetInnerHTML={{ __html: postData.content }} />
         </article>

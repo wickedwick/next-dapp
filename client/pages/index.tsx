@@ -5,22 +5,23 @@ import BlogPost from '../components/blogPost'
 import BlogPostList from '../components/blogPostList'
 import Layout, { siteTitle } from '../components/layout'
 import utilStyles from '../styles/utils.module.css'
-import { NearBlogPost } from '../types/blog'
+import { StrapiBlogPost } from '../types/blog'
 
 export default function Home() {
-  const [posts, setPosts] = useState<NearBlogPost[]>([])
-  const [selectedPost, setSelectedPost] = useState<NearBlogPost | null>(null)
-  const baseApiUrl = 'https://d-cms-test.herokuapp.com/api/public/content'
+  const [posts, setPosts] = useState<StrapiBlogPost[]>([])
+  const [selectedPost, setSelectedPost] = useState<StrapiBlogPost | null>(null)
+  // TODO: set as a env variable
+  const baseApiUrl = 'https://wickhamhome.herokuapp.com/blog-posts' //'http://localhost:1337/blog-posts'
 
   useEffect(() => {
-    axios.get(baseApiUrl + '?type=blog')
+    axios.get(baseApiUrl)
       .then(res => {
         setPosts(res.data)
       })
   }, [])
 
-  const handleShowBlog = (slug: string): void => {
-    axios.get(baseApiUrl + '/' + slug)
+  const handleShowBlog = (id: number): void => {
+    axios.get(baseApiUrl + '/' + id)
       .then(res => {
         setSelectedPost(res.data)
       })
@@ -42,7 +43,7 @@ export default function Home() {
           Please take a look around and check out my Github/LinkedIn profiles. And feel free to drop me a line.
         </p>
         <p data-aos="fade-up"data-aos-delay="1800" data-aos-duration="600" className="mb-3">
-          This site is hosted on the Interplanetary File System, uses Gun JS for data persistence, and gets content that is stored on a decentralized content management system (d CMS).
+          If you are interested in working together, please feel free to reach out.
         </p>
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`} data-aos="fade-right" data-aos-delay="2400" data-aos-duration="700">

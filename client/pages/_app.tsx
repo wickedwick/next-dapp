@@ -2,12 +2,12 @@ import AOS from 'aos';
 import getWeb3, { abi, contractAddress } from '../services/web3';
 import React, { useEffect, useState } from 'react';
 import Web3 from 'web3';
-import { AppProps } from 'next/app';
-import '../styles/global.css';
-import 'aos/dist/aos.css';
-import { Web3Context } from '../context/Web3Context';
 import { AppContext } from '../context/AppContext';
 import { AppContextParams, Web3ContextParams } from '../types/context';
+import { AppProps } from 'next/app';
+import { Web3Context } from '../context/Web3Context';
+import '../styles/global.css';
+import 'aos/dist/aos.css';
 
 function App({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(false)

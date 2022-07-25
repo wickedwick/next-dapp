@@ -38,3 +38,14 @@ export type NearBlogPost = {
   createdAt: string
   updatedAt: string
 }
+
+export type StrapiBlogPost = {
+  id: number
+  title: string
+  slug: string
+  subtitle?: string
+  postedDate?: string
+  body: string
+  created_at: string
+  updated_at: string
+}
